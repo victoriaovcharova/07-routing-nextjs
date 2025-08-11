@@ -22,7 +22,7 @@ interface Props {
     notes: Note[];
     totalPages: number;
   };
-  initialTag: string; // приходит из [...slug]
+  initialTag: string;
 }
 
 const NotesClients = ({ initialData, initialTag }: Props) => {
@@ -32,8 +32,7 @@ const NotesClients = ({ initialData, initialTag }: Props) => {
   const [debouncedSearch] = useDebounce(search.trim(), 500);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Если пользователь кликает в TagsMenu (Link → новый URL),
-  // страница монтируется с новым initialTag — синхронизируем локальное состояние
+
   useEffect(() => {
     setTag(initialTag);
     setPage(1);

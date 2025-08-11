@@ -1,42 +1,44 @@
-"use client";
-import { useState, useMemo } from "react";
-import Link from "next/link";
+'use client'
+import { useState } from "react";
 import css from "./TagsMenu.module.css";
+import Link from "next/link";
 
 const TagsMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Отображаемые названия тегов
-  const tags = ["All", "Todo", "Work", "Personal", "Meeting", "Shopping"];
 
-  // slug для URL – в нижнем регистре и url-encoded
-  const toSlug = (label: string) =>
-    encodeURIComponent(label.toLowerCase());
+  const tags = [
+    "All",
+    "Todo",
+    "Work",
+    "Personal",
+    "Meeting",
+    "Shopping",
+  ];
+  const openTags= () => {
+    setIsOpen(!isOpen)
+  }
 
-  const toggle = () => setIsOpen((v) => !v);
-  const close = () => setIsOpen(false);
+  const handleClickLink = () =>{
+    setIsOpen(false)
+  }
 
   return (
     <div className={css.menuContainer}>
-      <button className={css.menuButton} onClick={toggle}>
+      <button className={css.menuButton} onClick={openTags}>
         {isOpen ? "Notes ▴" : "Notes ▾"}
       </button>
-
-      {isOpen && (
-        <ul className={css.menuList}>
-          {tags.map((tag) => (
-            <li className={css.menuItem} key={tag}>
-              <Link
-                href={`/notes/filter/${toSlug(tag)}`}
-                className={css.menuLink}
-                onClick={close}
-              >
-                {tag}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
+        {isOpen && (
+            <ul className={css.menuList}>
+        {tags.map((tag) => (
+          <li className={css.menuItem} key={tag}>
+            <Link
+              href={`/notes/filter/${tag}`}
+              className={css.menuLink}
+              onClick={handleClickLink}
+            >{tag}</Link>
+          </li>))}
+              </ul>)}
     </div>
   );
 };
